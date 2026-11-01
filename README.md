@@ -2,17 +2,7 @@
 ### From a 2D Sketch to a Textured 3D Creation
 
 <p align="center">
-  <img src="docs/images/poofit3d-banner.png" alt="PoofIt3D — From Sketch to 3D" width="100%" />
-</p>
-
-<p align="center">
   <strong>Draw. Enhance. Evaluate. Reconstruct. Explore.</strong>
-</p>
-
-<p align="center">
-  <a href="YOUR_DEMO_VIDEO_LINK">▶ Watch Demo</a> ·
-  <a href="YOUR_KAGGLE_LINK">Kaggle Notebook</a> ·
-  <a href="YOUR_DRIVE_LINK">Project Resources</a>
 </p>
 
 <p align="center">
@@ -23,7 +13,7 @@
 </p>
 
 <p align="center">
-  <strong>Team Sirius</strong><br />
+  **Team Sirius**  
   K. Akash · Kavish Bhatia · Keerthi H.
 </p>
 
@@ -33,7 +23,7 @@
 
 **What if creating a 3D object started with nothing more than a simple sketch?**
 
-Traditional 3D modelling often requires specialised software, technical experience, and considerable manual effort. PoofIt3D explores a different approach: turning a user's initial drawing into a textured, downloadable 3D asset through an integrated AI pipeline.
+Traditional 3D modelling often requires specialised software, technical experience, and considerable manual effort. PoofIt3D explores a different approach: transforming a user's initial drawing into a textured, downloadable 3D asset through an integrated AI pipeline.
 
 PoofIt3D combines:
 
@@ -43,57 +33,36 @@ PoofIt3D combines:
 - AI-powered image-to-3D reconstruction.
 - Mesh validation and GLB export.
 
-**The central idea:** Preserve the intent behind the original sketch while automating the journey from a 2D concept to a 3D visual asset.
+**Our goal:** Preserve the intent behind the original sketch while making 3D creation more accessible.
 
 ## 02 · The Experience
 
-<p align="center">
-  <img src="docs/images/workflow-overview.png" alt="PoofIt3D end-to-end workflow" width="95%" />
-</p>
-
-| Step | What happens |
+| Step | Process |
 |---|---|
 | 01 · Sketch | Draw on the interactive canvas or upload an image. |
 | 02 · Enhance | Generate three sketch-guided visual variations. |
 | 03 · Evaluate | Compare candidate silhouettes using Intersection over Union (IoU). |
-| 04 · Approve | Select the visual interpretation that best represents the intended concept. |
+| 04 · Approve | Select the visual interpretation that best represents the concept. |
 | 05 · Reconstruct | Convert the approved image into a 3D mesh using InstantMesh. |
 | 06 · Explore | Inspect the reconstructed object in an interactive viewer. |
 | 07 · Export | Download the textured 3D asset in GLB format. |
 
-## 03 · Visual Showcase
+## 03 · Project Gallery
 
-### Sketch → AI-generated concepts
+### Sketch-to-image results
 
-<p align="center">
-  <img src="docs/results/racecar_grid.png" alt="Racecar sketch and generated variations" width="100%" />
-  <strong>01 — Racecar</strong>
-</p>
+The project evaluation includes four sketch categories:
 
-<p align="center">
-  <img src="docs/results/person_grid.png" alt="Person sketch and generated variations" width="100%" />
-  <strong>02 — Person</strong>
-</p>
-
-<p align="center">
-  <img src="docs/results/camel_grid.png" alt="Camel sketch and generated variations" width="100%" />
-  <strong>03 — Camel</strong>
-</p>
-
-<p align="center">
-  <img src="docs/results/house_grid.png" alt="House sketch and generated variations" width="100%" />
-  <strong>04 — House</strong>
-</p>
+- Racecar
+- Person
+- Camel
+- House
 
 ### Reconstructed 3D assets
 
-<p align="center">
-  <img src="docs/images/3d-gallery.png" alt="PoofIt3D reconstructed 3D asset gallery" width="100%" />
-</p>
+Four objects were successfully reconstructed and exported as textured GLB models.
 
-The following benchmark records four successful textured GLB exports.
-
-| Reconstructed object | Vertices | Faces | GLB size | 3D generation time |
+| Object | Vertices | Faces | GLB size | 3D generation time |
 |---|---:|---:|---:|---:|
 | Racecar | 10,453 | 14,336 | 1.13 MB | 88.51 s |
 | Camel | 7,406 | 10,616 | 1.23 MB | 72.70 s |
@@ -101,26 +70,22 @@ The following benchmark records four successful textured GLB exports.
 | House | 19,901 | 28,420 | 1.89 MB | 77.00 s |
 
 <details>
-<summary><strong>Explore the exported 3D models</strong></summary>
+<summary><strong>Explore exported 3D models</strong></summary>
 
-- [Racecar — GLB](docs/results/racecar.glb)
-- [Camel — GLB](docs/results/camel.glb)
-- [Person — GLB](docs/results/person.glb)
-- [House — GLB](docs/results/house.glb)
+- Racecar — `racecar.glb`
+- Camel — `camel.glb`
+- Person — `person.glb`
+- House — `house.glb`
 
-Open the models using [glTF Viewer](https://gltf-viewer.donmccurdy.com/) or Blender.
+The models can be inspected using an online glTF viewer or Blender.
 
 </details>
 
-<sub>Recorded environment: NVIDIA Tesla T4 GPU · InstantMesh Large · grid_res=64. The reported times refer to 3D reconstruction, not the complete end-to-end workflow.</sub>
+<sub>Recorded environment: NVIDIA Tesla T4 GPU · InstantMesh Large · grid_res=64. Times refer to 3D reconstruction, not the complete workflow.</sub>
 
 ## 04 · System Architecture
 
-<p align="center">
-  <img src="docs/images/architecture.png" alt="PoofIt3D system architecture" width="100%" />
-</p>
-
-The system is organised into two primary generative stages, connected by a quality evaluation and user approval layer.
+PoofIt3D uses two primary generative stages, connected by a quality-evaluation and user-approval layer.
 
 ```mermaid
 flowchart TD
@@ -142,11 +107,9 @@ flowchart TD
 
 **Stable Diffusion 1.5 + ControlNet-Scribble**
 
-The first stage transforms the input sketch into multiple enhanced visual concepts.
+ControlNet uses the input sketch as a structural conditioning signal, helping the diffusion model follow the original drawing while generating visual details such as colour, material and appearance.
 
-ControlNet uses the sketch as a structural conditioning signal, helping the diffusion model follow the original drawing while generating visual details such as colour, material and appearance.
-
-The pipeline supports:
+Key capabilities:
 
 - Sketch-guided image generation.
 - Optional natural-language prompts.
@@ -154,7 +117,7 @@ The pipeline supports:
 - Three candidate variations.
 - Generation progress tracking.
 
-### Stage 2 — Explainable sketch-fidelity evaluation
+### Stage 2 — Sketch-fidelity evaluation
 
 **NumPy + OpenCV + Silhouette IoU**
 
@@ -166,7 +129,7 @@ The evaluation process:
 
 1. Extract the original sketch silhouette.
 2. Segment the generated image foreground.
-3. Normalise the silhouettes.
+3. Normalise both silhouettes.
 4. Calculate their intersection and union.
 5. Rank candidates based on silhouette overlap.
 
@@ -183,9 +146,9 @@ Where:
 
 A higher IoU indicates greater outline overlap.
 
-**Why it matters:** This adds an explainable geometric comparison to the candidate-selection process rather than relying exclusively on visual preference.
+**Why it matters:** This introduces an explainable geometric comparison instead of relying exclusively on subjective visual selection.
 
-*IoU is a silhouette similarity measure. It does not independently establish semantic correctness, texture quality or complete 3D accuracy.*
+*IoU evaluates silhouette similarity. It does not independently establish semantic correctness, texture quality or complete 3D accuracy.*
 
 ### Stage 3 — Image-to-3D reconstruction
 
@@ -203,13 +166,13 @@ The documented reconstruction workflow includes:
 
 The result is a textured 3D mesh intended for interactive inspection and export.
 
-### Stage 4 — Mesh validation and GLB export
+### Stage 4 — Validation and export
 
 **Trimesh + GLB**
 
 The exported model is reloaded for validation.
 
-The validation checks include:
+Validation checks include:
 
 - Non-empty geometry.
 - Vertex and face counts.
@@ -241,18 +204,18 @@ The resulting GLB asset can be inspected in the Three.js viewer and downloaded.
 
 | Decision | Engineering rationale |
 |---|---|
-| ControlNet conditioning | Preserve more of the input sketch's structure during image generation. |
-| Three candidate outputs | Give users multiple visual interpretations. |
-| Silhouette IoU | Introduce a lightweight and explainable geometric comparison. |
-| Manual approval | Let the user choose before starting the more expensive reconstruction stage. |
-| Separate 3D environment | Isolate InstantMesh dependencies from the image-generation environment. |
-| GLB validation | Check the exported asset before presenting it as a downloadable result. |
+| ControlNet conditioning | Helps preserve the input sketch's structure during image generation. |
+| Three candidate outputs | Gives users multiple visual interpretations. |
+| Silhouette IoU | Provides a lightweight and explainable geometric comparison. |
+| Manual approval | Keeps users in control before expensive reconstruction. |
+| Separate 3D environment | Isolates InstantMesh dependencies from the image-generation environment. |
+| GLB validation | Checks the exported asset before delivery. |
 
 ## 07 · Experimental Results
 
 The documented evaluation covers four different sketch categories: racecar, camel, person and house.
 
-| Evaluation dimension | Recorded implementation |
+| Evaluation dimension | Implementation |
 |---|---|
 | Sketch input | Interactive canvas and image upload |
 | Image preprocessing | EXIF correction, transparency handling, grayscale conversion and resizing |
@@ -271,7 +234,7 @@ The documented evaluation covers four different sketch categories: racecar, came
 - Reconstruction model: InstantMesh Large.
 - Reconstruction configuration: `grid_res=64`.
 
-The benchmark values above are individual recorded runs. They should not be interpreted as a statistically averaged performance guarantee.
+The reported values are individual recorded runs, not statistically averaged performance guarantees.
 
 ## 08 · Getting Started
 
@@ -287,7 +250,7 @@ The documented end-to-end workflow uses a Kaggle NVIDIA Tesla T4 GPU environment
 - Project files uploaded as a Kaggle dataset.
 - PoofIt3D end-to-end notebook.
 
-**Execution**
+**Execution workflow**
 
 1. Upload the project ZIP as a Kaggle dataset.
 2. Open `PoofIt3D_Kaggle_E2E.ipynb`.
@@ -297,13 +260,7 @@ The documented end-to-end workflow uses a Kaggle NVIDIA Tesla T4 GPU environment
 6. Execute the notebook cells in sequence.
 7. Download the generated `results.zip`.
 
-The notebook contains the documented environment setup, model dependencies, InstantMesh configuration, backend execution and results packaging.
-
-**Notebook:** [Open PoofIt3D on Kaggle](YOUR_KAGGLE_LINK)
-
 ### Option B — Local development
-
-The application uses a React frontend and a FastAPI backend. The 3D reconstruction stage additionally requires the separately configured InstantMesh environment and compatible GPU resources.
 
 **Prerequisites**
 
@@ -315,7 +272,7 @@ The application uses a React frontend and a FastAPI backend. The 3D reconstructi
 Clone the repository:
 
 ```bash
-git clone YOUR_GITHUB_REPOSITORY_URL
+git clone YOUR_REPOSITORY_URL
 cd PoofIt3D
 ```
 
@@ -338,7 +295,7 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-Start the backend using the project's configured entry point:
+Start the backend using the configured entry point:
 
 ```bash
 python main.py
@@ -354,19 +311,19 @@ npm install
 npm start
 ```
 
-Open:
+Open the application:
 
 ```text
 http://localhost:3000
 ```
 
-The backend and frontend must both be configured to communicate with each other. Follow the project-specific 3D setup guide for InstantMesh.
+The frontend and backend must both be configured to communicate with each other. The 3D reconstruction stage additionally requires the separately configured InstantMesh environment and compatible GPU resources.
 
-For detailed configuration, see [docs/3d-setup.md](docs/3d-setup.md).
+See `docs/3d-setup.md` for the 3D environment configuration.
 
 ## 09 · Backend API
 
-The documented backend interface includes the following endpoints.
+The documented backend interface includes:
 
 | Method | Endpoint | Purpose |
 |---|---|---|
@@ -379,7 +336,7 @@ The documented backend interface includes the following endpoints.
 | POST | `/api/3d/generate` | Start 3D reconstruction |
 | GET | `/api/share/{id}` | Share result, where configured |
 
-See the backend API implementation for the authoritative route definitions and request schemas.
+Refer to the actual backend route definitions for authoritative request and response schemas.
 
 ## 10 · Repository Structure
 
@@ -408,14 +365,6 @@ PoofIt3D/
 ├── docs/
 │   ├── images/
 │   ├── results/
-│   │   ├── racecar_grid.png
-│   │   ├── person_grid.png
-│   │   ├── camel_grid.png
-│   │   ├── house_grid.png
-│   │   ├── racecar.glb
-│   │   ├── person.glb
-│   │   ├── camel.glb
-│   │   └── house.glb
 │   └── 3d-setup.md
 │
 ├── scripts/
@@ -426,24 +375,17 @@ PoofIt3D/
 
 ## 11 · Project Resources
 
-| Resource | Access |
-|---|---|
-| Source code | [GitHub Repository](YOUR_GITHUB_LINK) |
-| Complete project files | [Google Drive](YOUR_DRIVE_LINK) |
-| Dataset and execution notebook | [Kaggle](YOUR_KAGGLE_LINK) |
-| Working demonstration | [Watch Demo Video](YOUR_DEMO_VIDEO_LINK) |
-| Project presentation | [View PPT](YOUR_PPT_LINK) |
-| Technical documentation | [View Documentation](YOUR_DOCUMENTATION_LINK) |
+**GitHub Repository**
 
-### Demo walkthrough
+**Google Drive — Complete Project Files**
 
-<p align="center">
-  <a href="YOUR_DEMO_VIDEO_LINK">
-    <img src="docs/images/demo-thumbnail.png" alt="PoofIt3D complete demonstration" width="90%" />
-  </a>
-  <br />
-  <strong>Watch the complete PoofIt3D workflow</strong>
-</p>
+**Kaggle — Dataset and Execution Notebook**
+
+**Project Demonstration Video**
+
+**Project Presentation**
+
+**Technical Documentation**
 
 ## 12 · Limitations and Future Scope
 
@@ -468,7 +410,7 @@ PoofIt3D/
 
 ## 13 · Models and Acknowledgements
 
-PoofIt3D builds upon the work of open-source research and development communities.
+PoofIt3D builds upon open-source research and development projects.
 
 | Technology | Reference |
 |---|---|
@@ -480,7 +422,7 @@ PoofIt3D builds upon the work of open-source research and development communitie
 | Three.js | [Official Website](https://threejs.org/) |
 | FastAPI | [Official Documentation](https://fastapi.tiangolo.com/) |
 
-Please refer to the respective upstream projects and [NOTICE.md](NOTICE.md) for licensing and attribution details.
+Refer to the respective upstream projects and `NOTICE.md` for licensing and attribution details.
 
 ## 14 · Team Sirius
 
@@ -499,16 +441,11 @@ Please refer to the respective upstream projects and [NOTICE.md](NOTICE.md) for 
 ---
 
 <p align="center">
-  <img src="docs/images/poofit3d-footer.png" alt="PoofIt3D closing visual" width="90%" />
-</p>
-
-<h3 align="center">PoofIt3D</h3>
-
-<p align="center">
-  <strong>Every great creation begins with a sketch.</strong><br />
+  **PoofIt3D**
+  
+  *Every great creation begins with a sketch.*
+  
   From imagination to a 3D world.
-</p>
-
-<p align="center">
-  Made by Team Sirius · TechZephyr 4.0
+  
+  **Team Sirius · TechZephyr 4.0**
 </p>
