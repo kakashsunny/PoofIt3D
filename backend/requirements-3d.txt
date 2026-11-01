@@ -1,0 +1,2 @@
+# GLB conversion/validation for meshes exported by the separate InstantMesh runtime.
+trimesh>=4.0,<5.0

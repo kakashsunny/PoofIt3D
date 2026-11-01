@@ -1,0 +1,46 @@
+services:
+  # Backend - uses GitHub image
+  backend:
+    image: poofit3d-backend:local
+    volumes:
+      - ./backend/dataset:/app/dataset
+      - huggingface_cache:/root/.cache/huggingface
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      - DEVICE=cuda
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DEBUG_MODE=true
+      - DEFAULT_MODEL_ID=controlnet_scribble
+      - NUM_INFERENCE_STEPS=20
+      - GUIDANCE_SCALE=7.5
+      - OUTPUT_IMAGE_SIZE=512
+      - PUBLIC_URL=${PUBLIC_URL:-http://localhost:3000}
+    networks:
+      - poofit3d
+
+  # Frontend/Proxy - uses GitHub image
+  app:
+    image: poofit3d-frontend:local
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    environment:
+      - BACKEND_URL=http://backend:8000
+      - NODE_ENV=production
+    networks:
+      - poofit3d
+
+volumes:
+  huggingface_cache: {}
+
+networks:
+  poofit3d:
+    driver: bridge

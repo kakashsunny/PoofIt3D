@@ -1,0 +1,8 @@
+{
+  "name": "poofit3d",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "http-proxy-middleware": "^3.0.5"
+  }
+}

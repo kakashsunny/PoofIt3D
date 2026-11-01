@@ -1,0 +1,9 @@
+{
+  "short_name": "PoofIt3D",
+  "name": "PoofIt3D Sketch-to-3D Generator",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#4285f4",
+  "background_color": "#ffffff"
+}
